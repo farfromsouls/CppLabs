@@ -23,8 +23,26 @@ int main(){
     p1.print(cout);
 
     // сеттер и геттер
-    p1.setDate(1, 2, 2015);
+    p1.setDate(5, 2, 2015);
     const int* gottenDate = p1.getDate();
+    cout << "дата поставленная через сеттер и полученная через геттер: "
+         << gottenDate[0] << "." << gottenDate[1] << "." << gottenDate[2] << "\n";
+
+    // выборка кол-во подписчиков > n
+    int n;
+    cout << "Минимум подписчиков для выборки профилей: ";
+    cin >> n;
+    SocialMediaProfile profiles[] = {p1, p2};
+    for (int i = 0; i != 2; i++) {
+        if (profiles[i].getFollowers() >= n) {
+            cout << profiles[i].getUsername() << ", ";
+        };
+    };
+
+    // перегрузки операций >> <<
+    cout << "\nПерегрузка операции вывода\n" << p1;
+    cout << "\nПерегрузка операции ввода\n" ;
+    cin >> p1;
 
     return 0;
 }

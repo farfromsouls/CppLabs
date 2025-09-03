@@ -11,6 +11,7 @@ private:
     int date[3];
 
 public:
+
 // без параметров
     SocialMediaProfile() { 
         username  = "";
@@ -18,6 +19,7 @@ public:
         surname   = "";
         followers = follows = date[0] = date[1] = date[2] = 0;
     };
+
 // с параметрами
     SocialMediaProfile(string _un, string _n, string _sn, int _f1, int _f2, int _d[3]) { 
         username   = _un;
@@ -27,6 +29,7 @@ public:
         follows    = _f2;
         memcpy(date, _d, 3 * sizeof(int));
     };
+
 // копирование
     SocialMediaProfile(const SocialMediaProfile &t) {
         username   = t.username;
@@ -36,18 +39,21 @@ public:
         follows    = t.follows;
         memcpy(date, t.date, 3 * sizeof(int)); 
     };
+
 // ostream вывод данных
-    void print(ostream &out) const {
+    ostream & print(ostream &out) const {
         out <<"Юзер: "         << username 
             <<"\nИмя: "        << name
             <<"\nФамилия: "    << surname
             <<"\nПодписчики: " << followers
             <<"\nПодписки: "   << follows
             <<"\nДата рег.: "  
-            <<date[0]<<"."<<date[1]<<"."<<date[2];
+            <<date[0]<<"."<<date[1]<<"."<<date[2] << "\n";
+        return out;
     };
+
 // istream ввод данных
-    void scan(istream &in) {
+    istream & scan(istream &in) {
         if (&in == &cin) {
             cout << "Введите имя пользователя: ";
             in >> username;
@@ -58,18 +64,27 @@ public:
             in >> username >> name >> surname >> followers
                >> follows >> date[0], date[1], date[2];
         }
+        return in;
     };
 
-// геттер возвращает указатель на массив с датой
-    const int* getDate() {
-        return date;
-    }
+// геттеры
+    const int* getDate() { return date; };
+    const int getFollowers() { return followers; };
+    const string getUsername() { return username; };
 
 // сеттер устанавливает дату
     void setDate(int day, int month, int year) {
         date[0] = day;
         date[1] = month;
-        date[3] = year;
-    }
-};
+        date[2] = year;
+    };
 
+    friend ostream & operator <<(ostream &stream, const SocialMediaProfile &obj) {
+        return obj.print(stream);
+    };
+
+    friend istream & operator >>(istream &stream, SocialMediaProfile &obj) {
+        return obj.scan(stream);
+    };
+
+};
