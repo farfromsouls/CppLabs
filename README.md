@@ -22,3 +22,7 @@ lab_directory>g++ (all .cpp files) -o main.exe
 - 5lab: This is about bidirectional list and nodes. Task was to separate negative and positive numbers from input file to outputs
 
 - 6lab: OOP and classes, here i had to describe a ball with some data and write some functions for it.
+
+
+
+11 лаба варик 20

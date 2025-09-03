@@ -7,16 +7,12 @@ struct Node {
     Node* next;
 };
 
-Node* createNode(int value) {
+void append(Node*& head, Node*& tail, int value) {
     Node* newNode = new Node;
     newNode->data = value;
     newNode->prev = nullptr;
     newNode->next = nullptr;
-    return newNode;
-}
 
-void append(Node*& head, Node*& tail, int value) {
-    Node* newNode = createNode(value);
     if (!head) {
         head = tail = newNode;
     } else {
@@ -49,7 +45,6 @@ void splitNumbers(const string& inputFile, Node*& positiveHead, Node*& positiveT
 
     inFile.close();
 }
-
 
 void writeListToFile(const string& outputFile, Node* head) {
     ofstream outFile(outputFile);
