@@ -48,7 +48,7 @@ public:
             <<"\nПодписчики: " << followers
             <<"\nПодписки: "   << follows
             <<"\nДата рег.: "  
-            <<date[0]<<"."<<date[1]<<"."<<date[2] << "\n";
+            <<date[0]<<"."<<date[1]<<"."<<date[2] << endl;
         return out;
     };
 
@@ -79,6 +79,7 @@ public:
         date[2] = year;
     };
 
+// перегрузка операторов ввода вывода
     friend ostream & operator <<(ostream &stream, const SocialMediaProfile &obj) {
         return obj.print(stream);
     };
@@ -87,4 +88,42 @@ public:
         return obj.scan(stream);
     };
 
+// 
+    static SocialMediaProfile* readFromFile(istream &stream) {
+        int count = 0;
+        string temp;
+        while (stream >> temp) {
+            for (int i = 0; i < 6; i++) stream >> temp;
+            count++;
+        }
+        stream.clear();
+        stream.seekg(0);
+        SocialMediaProfile* profiles = new SocialMediaProfile[count];
+
+        for (int i = 0; i < count; i++) {
+            stream >> profiles[i].username 
+                   >> profiles[i].name 
+                   >> profiles[i].surname 
+                   >> profiles[i].followers 
+                   >> profiles[i].follows 
+                   >> profiles[i].date[0]
+                   >> profiles[i].date[1]
+                   >> profiles[i].date[2];
+        }
+        
+        return profiles;
+    }
+
+    static void writeToFile(ostream &stream, SocialMediaProfile* profiles, int count) {
+        for (int i = 0; i < count; i++) {
+            stream << profiles[i].username << " "
+                   << profiles[i].name << " "
+                   << profiles[i].surname << " "
+                   << profiles[i].followers << " "
+                   << profiles[i].follows << " "
+                   << profiles[i].date[0] << " "
+                   << profiles[i].date[1] << " "
+                   << profiles[i].date[2] << endl;
+        }
+    }
 };

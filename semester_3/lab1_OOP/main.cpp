@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "SocialMediaProfile.cpp"
 #include <locale.h>
 
@@ -26,7 +27,7 @@ int main(){
     p1.setDate(5, 2, 2015);
     const int* gottenDate = p1.getDate();
     cout << "дата поставленная через сеттер и полученная через геттер: "
-         << gottenDate[0] << "." << gottenDate[1] << "." << gottenDate[2] << "\n";
+         << gottenDate[0] << "." << gottenDate[1] << "." << gottenDate[2] << endl;
 
     // выборка кол-во подписчиков > n
     int n;
@@ -43,6 +44,17 @@ int main(){
     cout << "\nПерегрузка операции вывода\n" << p1;
     cout << "\nПерегрузка операции ввода\n" ;
     cin >> p1;
+
+    int count;
+    // чтение файла
+    ifstream file("input.txt");
+    SocialMediaProfile* input_profiles = SocialMediaProfile::readFromFile(file);
+    file.close();
+
+    // запись в файл
+    ofstream outputFile("output.txt");
+    SocialMediaProfile::writeToFile(outputFile, input_profiles, 1); 
+    outputFile.close();
 
     return 0;
 }
